@@ -9,8 +9,9 @@ interface Props {
     className?: string;
 }
 
-const Thumbnail = ({ type, extension, url = '', imageClassName, className }: Props) => {
+export const Thumbnail = ({ type, extension, url = '', imageClassName, className }: Props) => {
     const isImage = type === 'image' && extension !== 'svg';
+
     return (
         <figure className={cn('thumbnail', className)}>
             <Image
@@ -21,12 +22,10 @@ const Thumbnail = ({ type, extension, url = '', imageClassName, className }: Pro
                 className={cn(
                     'size-8 object-contain',
                     imageClassName,
-                    className,
                     isImage && 'thumbnail-image'
                 )}
             />
         </figure>
     );
 };
-
 export default Thumbnail;
