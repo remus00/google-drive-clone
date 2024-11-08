@@ -1,6 +1,7 @@
 'use client';
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { navItems } from '@/constants';
+import { signOutUser } from '@/lib/actions/user.actions';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -84,7 +85,11 @@ const MobileNavigation = ({ ownerId, accountId, fullName, avatar, email }: Props
 
                     <div className="flex flex-col justify-between gap-5 pb-5">
                         <FileUploader />
-                        <Button type="submit" className="mobile-sign-out-button">
+                        <Button
+                            type="submit"
+                            onClick={async () => await signOutUser()}
+                            className="mobile-sign-out-button"
+                        >
                             <Image
                                 src="/assets/icons/logout.svg"
                                 alt="logo"
