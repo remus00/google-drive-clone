@@ -28,24 +28,30 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
 
             const uploadPromises = acceptedFiles.map(async (file) => {
                 if (file.size > MAX_FILE_SIZE) {
-                    setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+                    setFiles((prevFiles) =>
+                        prevFiles.filter((f) => f.name !== file.name)
+                    );
 
                     return toast({
                         description: (
                             <p className="body-2 text-white">
-                                <span className="font-semibold">{file.name}</span> is too large. Max
-                                file size is 50MB.
+                                <span className="font-semibold">{file.name}</span> is too
+                                large. Max file size is 50MB.
                             </p>
                         ),
                         className: 'error-toast',
                     });
                 }
 
-                return uploadFile({ file, ownerId, accountId, path }).then((uploadedFile) => {
-                    if (uploadedFile) {
-                        setFiles((prevFiles) => prevFiles.filter((f) => f.name !== file.name));
+                return uploadFile({ file, ownerId, accountId, path }).then(
+                    (uploadedFile) => {
+                        if (uploadedFile) {
+                            setFiles((prevFiles) =>
+                                prevFiles.filter((f) => f.name !== file.name)
+                            );
+                        }
                     }
-                });
+                );
             });
 
             await Promise.all(uploadPromises);
@@ -67,7 +73,12 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
         <div {...getRootProps()} className="cursor-pointer">
             <input {...getInputProps()} />
             <Button type="button" className={cn('uploader-button', className)}>
-                <Image src="/assets/icons/upload.svg" alt="upload" width={24} height={24} />{' '}
+                <Image
+                    src="/assets/icons/upload.svg"
+                    alt="upload"
+                    width={24}
+                    height={24}
+                />{' '}
                 <p>Upload</p>
             </Button>
             {files.length > 0 && (
@@ -78,7 +89,10 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
                         const { type, extension } = getFileType(file.name);
 
                         return (
-                            <li key={`${file.name}-${index}`} className="uploader-preview-item">
+                            <li
+                                key={`${file.name}-${index}`}
+                                className="uploader-preview-item"
+                            >
                                 <div className="flex items-center gap-3">
                                     <Thumbnail
                                         type={type}
@@ -87,7 +101,9 @@ const FileUploader = ({ ownerId, accountId, className }: Props) => {
                                     />
 
                                     <div className="preview-item-name">
-                                        {file.name}
+                                        <p className="max-w-[240px] truncate">
+                                            {file.name}
+                                        </p>
                                         <Image
                                             src="/assets/icons/file-loader.gif"
                                             width={80}
